@@ -38,6 +38,8 @@ public class AppTest
         } catch (AssertionError e) {
             fail("\"message\" is not \"Hello World loh!\"");
         }
+
+        assertEquals(2, 3);
     }
 
     @After
