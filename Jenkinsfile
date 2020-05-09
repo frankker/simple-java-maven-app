@@ -17,6 +17,20 @@ pipeline {
                sh 'mvn -B -DskipTests clean package'
             }
         }
+        stage('Publish') {
+             environment {
+               registryCredential = 'FrankDockerID'
+             }
+             steps{
+                 script {
+                     def appimage = docker.build registry + ":$BUILD_NUMBER"
+                     docker.withRegistry( '', registryCredential ) {
+                         appimage.push()
+                         appimage.push('latest')
+                     }
+                 }
+             }
+        }
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
