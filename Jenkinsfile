@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+       registry = "frankker/simplejavak8scicd"
+    }
     stages {
         stage('Test') {
             steps {
