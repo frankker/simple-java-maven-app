@@ -20,19 +20,19 @@ pipeline {
             }
         }
         stage('Publish') {
-             environment {
-               registryCredential = 'dockerhub'
-             }
-             steps{
-                 script {
-                     def appimage = docker.build   + ":$BUILD_NUMBER"
-                     docker.withRegistry( '', registryCredential ) {
-                         appimage.push()
-                         appimage.push('latest')
+                     environment {
+                       registryCredential = 'FrankDockerID'
                      }
-                 }
-             }
-        }
+                     steps{
+                         script {
+                             def appimage = docker.build registry + ":$BUILD_NUMBER"
+                             docker.withRegistry( '', registryCredential ) {
+                                 appimage.push()
+                                 appimage.push('latest')
+                             }
+                         }
+                     }
+                }
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
