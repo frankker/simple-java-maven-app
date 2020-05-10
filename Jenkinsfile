@@ -24,7 +24,7 @@ pipeline {
                  * docker build on the command line */
             steps{
               script {
-                app = docker.build("getintodevops/hellonode")
+                app = docker.build("frankker/testpipeline")
               }
             }
         }
@@ -35,7 +35,7 @@ pipeline {
                  * Pushing multiple tags is cheap, as all the layers are reused. */
                  steps{
                    script {
-                     docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                     docker.withRegistry('https://registry.hub.docker.com', 'FrankDockerID') {
                        app.push("${env.BUILD_NUMBER}")
                        app.push("latest")
                      }
