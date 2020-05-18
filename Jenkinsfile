@@ -48,6 +48,7 @@ pipeline {
                 sh 'echo "******************kubectl version*********************"'
                 sh 'kubectl version'
                 sh 'kubectl apply -f deployment.yaml'
+                sh 'echo "******************kubectl version 222*********************"'
               }
             }
 /*
