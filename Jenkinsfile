@@ -45,6 +45,8 @@ pipeline {
 
             stage('Kubernetes Deployment'){
               steps {
+                sh 'echo "******************kubectl version*********************"'
+                sh 'kubectl version'
                 sh 'kubectl apply -f deployment.yaml'
               }
             }
