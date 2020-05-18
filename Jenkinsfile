@@ -45,7 +45,7 @@ pipeline {
 
             stage('Kubernetes Deployment'){
               steps {
-                sh 'kubectl apply -f https://k8s.io/examples/application/deployment.yaml'
+                sh 'kubectl apply -f deployment.yaml'
               }
             }
 /*
