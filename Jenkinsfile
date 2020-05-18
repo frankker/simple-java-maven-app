@@ -43,14 +43,11 @@ pipeline {
                  }
             }
 
-            stage ('Deploy') {
-                       steps {
-                           script{
-                               def image_id = registry + ":$BUILD_NUMBER"
-                               sh "ansible-playbook playbook.yaml --extra-vars \"image_id=${image_id}\""
-                           }
-                       }
-                   }
+            stage('Kubernetes Deployment'){
+              steps {
+                sh 'kubectl apply -f https://k8s.io/examples/application/deployment.yaml'
+              }
+            }
 
 /*
         stage('Publish') {
