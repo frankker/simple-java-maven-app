@@ -42,7 +42,7 @@ pipeline {
                    }
                  }
             }
-            
+
 /*
         stage('Publish') {
                      environment {
