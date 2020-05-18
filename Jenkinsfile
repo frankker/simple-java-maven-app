@@ -53,9 +53,16 @@ pipeline {
                                        echo "This is the content of the file `cat $mySecretFile`"
                                      '''
                               }
-                sh 'kubectl version'
-                sh 'kubectl create -f deployment.yaml'
+
                 sh 'echo "******************kubectl version 222*********************"'
+
+                withKubeConfig([credentialsId: 'kubernetes-token', serverUrl: 'https://kubernetes.docker.internal:6443']) {
+
+                sh 'kubectl version'
+                  sh 'kubectl create -f deployment.yaml'
+                }
+
+
               }
             }
 /*
