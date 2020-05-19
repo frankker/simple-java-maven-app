@@ -45,24 +45,26 @@ pipeline {
 
             stage('Kubernetes Deployment'){
               steps {
-                sh 'echo "******************kubectl version*********************"'
-                withCredentials([string(credentialsId: 'kubernetes-api-server-url', variable: 'mySecretFile')]) {
-                                  // some block can be a groovy block as well and the variable will be available to the groovy script
-                                  sh '''
-                                       echo "This is the directory of the secret file $mySecretFile"
-                                       echo "This is the content of the file `cat $mySecretFile`"
-                                     '''
-                              }
 
-                sh 'echo "******************kubectl version 222*********************"'
-
-                withKubeConfig([credentialsId: 'kubernetes-token', serverUrl: 'https://kubernetes.docker.internal:6443']) {
-
-                sh 'kubectl version'
-                  sh 'kubectl create -f deployment.yaml'
+                script{
+                  sh 'echo "*********************************************"'
+                  def image_id = registry + ":$BUILD_NUMBER"
+                  sh 'echo "*****Image id is $image_id"'
+                  sh "ansible-playbook  playbook.yml --extra-vars \"image_id=${image_id}\""
                 }
 
+                withCredentials([string(credentialsId: 'kubernetes-api-server-url', variable: 'mySecretFile')]) {
+                  // some block can be a groovy block as well and the variable will be available to the groovy script
+                  sh '''
+                    echo "This is the directory of the secret file $mySecretFile"
+                    echo "This is the content of the file `cat $mySecretFile`"
+                  '''
+                }
 
+                withKubeConfig([credentialsId: 'kubernetes-token', serverUrl: 'https://kubernetes.docker.internal:6443']) {
+                  sh 'kubectl version'
+                  sh 'kubectl create -f deployment.yaml'
+                }
               }
             }
 /*
