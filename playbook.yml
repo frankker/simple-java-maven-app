@@ -1,5 +1,6 @@
 - hosts: localhost
   become: yes
+  become_method: sudo
   vars:
     jenkins_hostname: 172.21.53.1
     docker_users:
