@@ -50,7 +50,7 @@ pipeline {
                   sh 'echo "*********************************************"'
                   def image_id = registry + ":$BUILD_NUMBER"
                   sh 'echo "*****Image id is $image_id"'
-                  sh "ansible-playbook  playbook.yml --extra-vars \"image_id=${image_id} ansible_become_pass=chingiap83\""
+                  sh "ansible-playbook  playbook.yml --ask-sudo-pass --extra-vars \"image_id=${image_id} ansible_become_pass=chingiap83\""
                 }
 
                 withCredentials([string(credentialsId: 'kubernetes-api-server-url', variable: 'mySecretFile')]) {
