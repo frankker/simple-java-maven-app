@@ -1,5 +1,4 @@
 - hosts: localhost
-  become_method: enable
   vars:
     ansible_become_pass: chingiap83
     jenkins_hostname: localhost
