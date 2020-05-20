@@ -52,7 +52,7 @@ pipeline {
                   def BECOMEPASS="chingiap83"
 
                   sh 'echo "*****Image id is $image_id"'
-                  sh 'ansible-playbook playbook.yml -i inventory -u sudo -k --become --extra-vars "image_id=frankker/testpipeline:latest ansible_become_pass=chingiap83"'
+                  sh 'ansible-playbook playbook.yml -i inventory -u frankker -k --become --extra-vars "image_id=frankker/testpipeline:latest ansible_become_pass=chingiap83"'
                 }
 
                 withCredentials([string(credentialsId: 'kubernetes-api-server-url', variable: 'mySecretFile')]) {
