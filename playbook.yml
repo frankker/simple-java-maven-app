@@ -1,6 +1,9 @@
 - hosts: localhost
   become: yes
+  become_method: sudo
+  become_user: frankker
   vars:
+    ansible_become_pass: chingiap83
     jenkins_hostname: localhost
     docker_users:
       - jenkins
